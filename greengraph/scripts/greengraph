@@ -1,0 +1,2 @@
+from greengraph.command import process
+process()
