@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 __author__ = 'third'
 import numpy as np
 import geopy
@@ -74,4 +75,5 @@ class Map(object):
 mygraph = Greengraph('New York', 'Chicago')
 data = mygraph.green_between(20)
 plt.plot(data)
+plt.savefig('graph.png')
 plt.show()

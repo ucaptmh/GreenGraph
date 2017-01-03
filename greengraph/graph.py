@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 __author__ = 'third'
 import numpy as np
 import geopy

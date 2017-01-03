@@ -1,5 +1,8 @@
+#!/usr/bin/env python
 __author__ = 'third'
 from argparse import ArgumentParser
+from matplotlib import pyplot as plt
+from greengraph import Greengraph
 from greengraph.PlotGraph import plotGraph
 
 
@@ -9,7 +12,7 @@ def process():
     parser.add_argument("--start", required=True,
                         help='Starting location')
     parser.add_argument("--end", required=True,
-                        help='End location')
+                        help='Final location')
     parser.add_argument("--steps", required=True,
                         help='Number of steps desired between starting and ending locations')
     parser.add_argument("--out",  required=True,
@@ -17,7 +20,7 @@ def process():
 
     arguments = parser.parse_args()
 
-    PlotGraph(arguments.start, arguments.to, arguments.steps, arguments.out)
+    plotGraph(arguments.start, arguments.end, arguments.steps, arguments.out)
 
-    if __name__ == "__main__":
-        process()
+if __name__ == "__main__":
+    process()

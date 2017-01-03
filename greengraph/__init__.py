@@ -1,2 +1,3 @@
+#!/usr/bin/env python
 __author__ = 'third'
-from graph import Greengraph
+from greengraph.graph import Greengraph
