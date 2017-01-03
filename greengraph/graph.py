@@ -1,7 +1,9 @@
 __author__ = 'third'
 import numpy as np
 import geopy
-from map import Map
+from greengraph.map import Map
+
+
 class Greengraph(object):
     def __init__(self, start, end):
         self.start = start

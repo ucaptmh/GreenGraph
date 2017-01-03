@@ -1,6 +1,6 @@
 __author__ = 'third'
 from argparse import ArgumentParser
-from greengraph.PlotGraph import PlotGraph
+from greengraph.PlotGraph import plotGraph
 
 
 def process():
