@@ -1,0 +1,3 @@
+[console_scripts]
+greengraph = greengraph.__main__:process
+

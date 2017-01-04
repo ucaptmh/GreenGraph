@@ -2,7 +2,8 @@
 This programme produces a plot of a graph that creates a rudimentary measure of the amount of green land between two cities. This is acheived by taking satellite images between the two locations over a given number of steps.
 
 ##Installation
-* From command: run `python setup.py install`
+To install run the following code:
+* From command: `python setup.py install`
 * Using pip: `pip install git+git://github.com/ucaptmh/GreenGraph`
 * Un-installation acheived by either a) deleting the relevant files or b) running `pip uninstall greengraph`
 
