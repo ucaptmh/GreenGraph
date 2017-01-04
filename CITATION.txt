@@ -1,0 +1,5 @@
+If you wish to refer to this software specifically please cite Thomas M Hird as the author and the the url:
+https://github.com/ucaptmh/GreenGraph
+
+Else this software was written for a coursework exercise so please cite the course URL:
+https://github.com/UCL/rsd-engineeringcourse
