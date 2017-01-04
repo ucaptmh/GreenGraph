@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 from greengraph.graph import Greengraph
 
 
-def plotGraph(start='New York', end='Chicago', steps=20, out: object="graph.png"):
+def plotGraph(start='Sydney', end='Melbourne', steps=20, out: object="graph.png"):
     mygraph = Greengraph(start, end)
     data = mygraph.green_between(steps)
     plt.plot(data)

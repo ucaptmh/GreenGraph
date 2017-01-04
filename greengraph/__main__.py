@@ -13,7 +13,7 @@ def process():
                         help='Final location')
     parser.add_argument("--steps", type=int, default="20", required=True,
                         help='Number of steps desired between starting and ending locations')
-    parser.add_argument("--out",  required=True,
+    parser.add_argument("--out", default="graph.png", required=True,
                         help="Filename of output")
 
     arguments = parser.parse_args()
