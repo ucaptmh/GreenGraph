@@ -1,8 +1,6 @@
-#!/usr/bin/env python
 __author__ = 'third'
 from argparse import ArgumentParser
-from matplotlib import pyplot as plt
-from greengraph import Greengraph
+
 from greengraph.PlotGraph import plotGraph
 
 
