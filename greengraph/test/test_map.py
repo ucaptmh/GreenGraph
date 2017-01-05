@@ -5,7 +5,7 @@ __author__ = 'third'
 import requests
 from io import BytesIO
 from matplotlib import image as img
-from  greengraph.map import Map
+from greengraph.map import Map
 import geopy
 import numpy as np
 import numpy.testing as npt
@@ -16,37 +16,41 @@ from mock import Mock, patch
 lat = 51.5073509
 long = -0.1277583
 
-test_map = Map(lat, long)
+
 
 
 def test_Map():
     mock_image = open(os.path.join(os.path.dirname(__file__),
                                    'london_png.png'), 'rb')
     with patch('requests.get', return_value=Mock(content=mock_image.read())) as mock_get:
+        test_map = Map(lat, long)
         npt.assert_allclose(test_map.pixels, np.load(os.path.join(os.path.dirname(__file__),
                                                                   'london_numpy.npy')))
         print("map_test")
 
+
+
         # class Map(object):
+        #
         # def __init__(self, lat, long, satellite=True,
-        # zoom=10, size=(400, 400), sensor=False):
-        # base = "http://maps.googleapis.com/maps/api/staticmap?"
+        #     zoom=10, size=(400, 400), sensor=False):
+        #     base = "http://maps.googleapis.com/maps/api/staticmap?"
         #
-        # params = dict(
-        #             sensor=str(sensor).lower(),
-        #             zoom=zoom,
-        #             size="x".join(map(str, size)),
-        #             center=",".join(map(str, (lat, long))),
-        #             style="feature:all|element:labels|visibility:off"
-        #         )
+        #     params = dict(
+        #     sensor=str(sensor).lower(),
+        #     zoom=zoom,
+        #                 size="x".join(map(str, size)),
+        #                 center=",".join(map(str, (lat, long))),
+        #                 style="feature:all|element:labels|visibility:off"
+        #             )
         #
-        #         if satellite:
-        #             params["maptype"] = "satellite"
+        #             if satellite:
+        #                 params["maptype"] = "satellite"
         #
-        #         self.image = requests.get(base, params=params).content
-        #         # Fetch our PNG image data
-        #         self.pixels = img.imread(BytesIO(self.image))
-        #         # Parse our PNG image as a numpy array
+        #             self.image = requests.get(base, params=params).content
+        #             # Fetch our PNG image data
+        #             self.pixels = img.imread(BytesIO(self.image))
+        #             # Parse our PNG image as a numpy array
         #
         #     def green(self, threshold):
         #         # Use NumPy to build an element-by-element logical array
