@@ -17,8 +17,6 @@ lat = 51.5073509
 long = -0.1277583
 
 
-
-
 def test_Map():
     mock_image = open(os.path.join(os.path.dirname(__file__),
                                    'london_png.png'), 'rb')
@@ -26,17 +24,33 @@ def test_Map():
         test_map = Map(lat, long)
         npt.assert_allclose(test_map.pixels, np.load(os.path.join(os.path.dirname(__file__),
                                                                   'london_numpy.npy')))
-        print("map_test")
+        # print("map_test")
 
+
+def test_green():
+    test_green_bool = np.load(os.path.join(os.path.dirname(__file__), 'london_green_bool.npy'))
+    mock_image = open(os.path.join(os.path.dirname(__file__),
+                                   'london_png.png'), 'rb')
+    with patch('requests.get', return_value=Mock(content=mock_image.read())) as mock_get:
+        test_map = Map(lat, long)
+        npt.assert_array_equal(Map.green(test_map, threshold=1.1), test_green_bool, "Error in Maps.green")
+
+
+def test_count_green():
+    mock_image = open(os.path.join(os.path.dirname(__file__),
+                                   'london_png.png'), 'rb')
+    with patch('requests.get', return_value=Mock(content=mock_image.read())) as mock_get:
+        test_map = Map(lat, long)
+        npt.assert_equal(Map.count_green(test_map, threshold=1.1), 108032, "Error in Map.count_green")
 
 
         # class Map(object):
         #
         # def __init__(self, lat, long, satellite=True,
-        #     zoom=10, size=(400, 400), sensor=False):
-        #     base = "http://maps.googleapis.com/maps/api/staticmap?"
+        # zoom=10, size=(400, 400), sensor=False):
+        # base = "http://maps.googleapis.com/maps/api/staticmap?"
         #
-        #     params = dict(
+        # params = dict(
         #     sensor=str(sensor).lower(),
         #     zoom=zoom,
         #                 size="x".join(map(str, size)),
