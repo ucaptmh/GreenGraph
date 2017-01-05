@@ -5,6 +5,7 @@ import geopy
 from greengraph.map import Map
 from greengraph.graph import Greengraph
 import os
+from io import BytesIO
 import numpy as np
 import numpy.testing as npt
 import yaml
@@ -40,15 +41,19 @@ def test_location_sequence():
     test_sequence_numpy = np.load(os.path.join(os.path.dirname(__file__), 'ox_london_seq.npy'))
     with patch.object(geopy.geocoders.GoogleV3, 'geocode') as mock_geocode:
         answer = Greengraph('Oxford', 'London')
-        mock_seq=answer.location_sequence((51.7520209, -1.2577263),(51.5073509,-0.1277583), 5)
-        npt.assert_array_almost_equal(mock_seq,test_sequence_numpy,decimal=2)
+        mock_seq = answer.location_sequence((51.7520209, -1.2577263), (51.5073509, -0.1277583), 5)
+        npt.assert_array_almost_equal(mock_seq, test_sequence_numpy, decimal=2)
 
 
 def test_green_between():
-    mock_image = open(os.path.join(os.path.dirname(__file__),
-                                   'london_png.png'), 'rb')
-
-
+    mock_image_start = open(os.path.join(os.path.dirname(__file__),
+                                         'london_png.png'), 'rb')
+    mock_image_end = open(os.path.join(os.path.dirname(__file__),
+                                       'london_png.png'), 'rb')
+    with patch('requests.get', return_value=Mock(content=mock_image_start.read())) as mock_get:
+        answer = Greengraph('Oxford', 'London')
+        mock_green = answer.green_between(2)
+        npt.assert_array_almost_equal(mock_green, [108032, 108032], decimal=2)
 
 
 
