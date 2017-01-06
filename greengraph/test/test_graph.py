@@ -13,6 +13,7 @@ from mock import Mock, patch
 from itertools import cycle
 from nose.tools import assert_equal
 
+
 def test_build_graph():
     with open(os.path.join(os.path.dirname(__file__),
                            'fixtures', 'build.yaml')) as fixtures_file:
@@ -38,7 +39,7 @@ def test_geolocate():
 
 
 def test_location_sequence():
-    test_sequence_numpy = np.load(os.path.join(os.path.dirname(__file__), 'ox_london_seq.npy'))
+    test_sequence_numpy = np.load(os.path.join(os.path.dirname(__file__), 'fixtures', 'ox_london_seq.npy'))
     with patch.object(geopy.geocoders.GoogleV3, 'geocode') as mock_geocode:
         answer = Greengraph('Oxford', 'London')
         mock_seq = answer.location_sequence((51.7520209, -1.2577263), (51.5073509, -0.1277583), 5)
@@ -47,13 +48,13 @@ def test_location_sequence():
 
 def test_green_between():
     mock_image_end = open(os.path.join(os.path.dirname(__file__),
-                                       'london_png.png'), 'rb')
+                                       'fixtures', 'london_png.png'), 'rb')
     data = cycle([(51.7520209, -1.2577263), (51.5073509, -0.1277583)])
     dummy_geolocate = Mock(name="geolocate", side_effect=data)
-    dummy_green=Mock(name="count_green", side_effect=[158198, 108032])
+    dummy_green = Mock(name="count_green", side_effect=[158198, 108032])
     with patch('requests.get', return_value=Mock(content=mock_image_end.read())) as mock_get:
         with patch.object(Greengraph, 'geolocate', dummy_geolocate) as mock_geolocate:
-            with patch.object(Map,'count_green', dummy_green) as mock_count_green:
+            with patch.object(Map, 'count_green', dummy_green) as mock_count_green:
                 answer1 = Greengraph('Oxford', 'London')
                 mock_green = answer1.green_between(2)
                 npt.assert_array_equal(mock_green, [158198, 108032])
