@@ -5,7 +5,7 @@ This programme produces a plot of a graph that creates a rudimentary measure of 
 To install run the following code:
 * From command: `python setup.py install`
 * Using pip: `pip install git+git://github.com/ucaptmh/GreenGraph`
-* Un-installation acheived by either a) deleting the relevant files or b) running `pip uninstall greengraph`
+* Un-installation achieved by either a) deleting the relevant files or b) running `pip uninstall greengraph`
 
 ##Usage
 Software may be ran from command line by the following:
