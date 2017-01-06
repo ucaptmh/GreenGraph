@@ -8,6 +8,9 @@ def plotGraph(start='Sydney', end='Melbourne', steps=20, out: object="graph.png"
     mygraph = Greengraph(start, end)
     data = mygraph.green_between(steps)
     plt.plot(data)
+    plt.title('GreenGraph Plot')
+    plt.xlabel('Step number')
+    plt.ylabel('Number of green pixels')
     #plt.show()
     #plt.savefig(out)
 
