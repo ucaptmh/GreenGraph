@@ -10,8 +10,8 @@ import numpy as np
 import numpy.testing as npt
 import yaml
 from mock import Mock, patch
+from itertools import cycle
 from nose.tools import assert_equal
-
 
 def test_build_graph():
     with open(os.path.join(os.path.dirname(__file__),
@@ -46,39 +46,15 @@ def test_location_sequence():
 
 
 def test_green_between():
-    mock_image_start = open(os.path.join(os.path.dirname(__file__),
-                                         'london_png.png'), 'rb')
     mock_image_end = open(os.path.join(os.path.dirname(__file__),
                                        'london_png.png'), 'rb')
-    with patch('requests.get', return_value=Mock(content=mock_image_start.read())) as mock_get:
-        answer = Greengraph('Oxford', 'London')
-        mock_green = answer.green_between(2)
-        npt.assert_array_almost_equal(mock_green, [108032, 108032], decimal=2)
+    data = cycle([(51.7520209, -1.2577263), (51.5073509, -0.1277583)])
+    dummy_geolocate = Mock(name="geolocate", side_effect=data)
+    dummy_green=Mock(name="count_green", side_effect=[158198, 108032])
+    with patch('requests.get', return_value=Mock(content=mock_image_end.read())) as mock_get:
+        with patch.object(Greengraph, 'geolocate', dummy_geolocate) as mock_geolocate:
+            with patch.object(Map,'count_green', dummy_green) as mock_count_green:
+                answer1 = Greengraph('Oxford', 'London')
+                mock_green = answer1.green_between(2)
+                npt.assert_array_equal(mock_green, [158198, 108032])
 
-
-
-
-
-
-        # class Greengraph(object):
-        # def __init__(self, start, end):
-        # self.start = start
-        # self.end = end
-        # self.geocoder = geopy.geocoders.GoogleV3(
-        # domain="maps.google.co.uk")
-        #
-        # def geolocate(self, place):
-        # return self.geocoder.geocode(place,
-        # exactly_one=False)[0][1]
-        #
-        # def location_sequence(self, start, end, steps):
-        # lats = np.linspace(start[0], end[0], steps)
-        # longs = np.linspace(start[1], end[1], steps)
-        # return np.vstack([lats, longs]).transpose()
-        #
-        # def green_between(self, steps):
-        # return [Map(*location).count_green()
-        # for location in self.location_sequence(
-        # self.geolocate(self.start),
-        # self.geolocate(self.end),
-        # steps)]
